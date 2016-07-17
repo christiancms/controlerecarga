@@ -66,6 +66,7 @@ public class ServicoServlet extends HttpServlet {
                     break;
 
                 case "encerrar":
+                    request.getRequestDispatcher("fimOrdServico.jsp").forward(request, response);
 
                     break;
 
@@ -77,7 +78,7 @@ public class ServicoServlet extends HttpServlet {
                     break;
 
                 case "ver":
-                    
+
                     request.getRequestDispatcher("exbOs.jsp").forward(request, response);
 
                     break;
