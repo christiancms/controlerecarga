@@ -1,4 +1,3 @@
-
 package br.com.recarga.dao;
 
 import br.com.recarga.bean.Pessoa;
@@ -23,7 +22,7 @@ public class DAOPessoa {
         EntityManager em = getEM();
         try {
             em.getTransaction().begin();
-            if (pessoa.getIdPessoa()== null) {
+            if (pessoa.getIdPessoa() == null) {
                 em.persist(pessoa); // executa insert
                 em.flush();
                 em.refresh(pessoa);
@@ -41,13 +40,11 @@ public class DAOPessoa {
             ex.printStackTrace();
         } finally {
             em.close();
-            
+
         }
         return pessoa;
     }
-    
-    
-    
+
     public void remover(Long id) {
 
         EntityManager em = getEM();
@@ -61,7 +58,7 @@ public class DAOPessoa {
 
         }
     }
-    
+
     public List<Pessoa> listar() {
         EntityManager em = getEM();
         Query q = em.createQuery("SELECT p FROM Pessoa p");
@@ -77,5 +74,13 @@ public class DAOPessoa {
             em.close();
         }
         return pessoa;
+    }
+
+    public List<Pessoa> buscaCompleta(String busca) {
+        EntityManager em = getEM();
+        Query q = em.createQuery("SELECT p FROM Pessoa p WHERE p.nomeRazsoc LIKE :coringa"
+                + " OR p.sobrenomeFantasia LIKE :coringa");
+        q.setParameter("coringa", "%" + busca + "%");
+        return q.getResultList();
     }
 }

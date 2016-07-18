@@ -40,7 +40,7 @@
                         </div>
                         <h6>
                             <label class="radio-inline"><input type="radio" name="buscar" value="cliente" >Cliente</label>
-                            <label class="radio-inline"><input type="radio" name="buscar" value="menu" >Menu</label>
+                            <label class="radio-inline"><input type="radio" name="buscar" value="menu" disabled="true">Menu</label>
                             <label class="radio-inline"><input type="radio" name="buscar" value="usuario" >Usuário</label>
                         </h6>
                     </div>

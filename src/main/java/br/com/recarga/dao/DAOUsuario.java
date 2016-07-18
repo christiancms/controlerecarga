@@ -91,6 +91,13 @@ public class DAOUsuario {
             return resultado > 0;
         }
     }
+
+    public List<Usuario> buscaCompleta(String busca) {
+        EntityManager em = getEM();
+        Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.nomeusuario LIKE :coringa");
+        q.setParameter("coringa", "%" + busca + "%");
+        return q.getResultList();
+    }
 }
 
 //Query query = em.createNativeQuery("SELECT * FROM EMPLOYEE WHERE F_NAME = ? AND L_NAME = ?", Employee.class);

@@ -5,8 +5,12 @@
  */
 package br.com.recarga.servlet;
 
+import br.com.recarga.bean.Pessoa;
+import br.com.recarga.bean.Usuario;
+import br.com.recarga.dao.DAOPessoa;
 import br.com.recarga.dao.DAOUsuario;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,15 +39,21 @@ public class BuscarServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
+
         DAOUsuario daousr = new DAOUsuario();
+        DAOPessoa daopes = new DAOPessoa();
+        String busca;
 
         String botaoRadio = request.getParameter("buscar");
 
         switch (botaoRadio) {
             case "cliente":
                 System.out.println("CLIENTE");
-                request.getRequestDispatcher("principal.jsp").forward(request, response);
+                busca = request.getParameter("data[search]");
+                List<Pessoa> exbCli = daopes.buscaCompleta(busca);
+                
+                request.setAttribute("exbPes", exbCli);
+                request.getRequestDispatcher("exbCliente.jsp").forward(request, response);
 
                 break;
             case "menu":
@@ -53,10 +63,10 @@ public class BuscarServlet extends HttpServlet {
                 break;
             case "usuario":
                 System.out.println("USUÁRIO");
-                String busca = request.getParameter("data[search]");
-//                List<Usuario> exbUsr = daousr.buscaCompleta(busca);
+                busca = request.getParameter("data[search]");
+                List<Usuario> exbUsr = daousr.buscaCompleta(busca);
 
-//                request.setAttribute("exbUsr", exbUsr);
+                request.setAttribute("exbUsr", exbUsr);
                 request.getRequestDispatcher("exbUsuario.jsp").forward(request, response);
 
                 break;
